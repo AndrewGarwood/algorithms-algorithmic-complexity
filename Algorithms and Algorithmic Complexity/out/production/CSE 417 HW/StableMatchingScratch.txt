@@ -1,0 +1,129 @@
+        Map<Agent, Agent> matchMap;
+
+
+        if horseOptimal {
+            // optimize horses => make horses proposing agents for map<horses, riders>
+            matchMap = new HashMap<ProposerAgent, Agent>();
+
+            // instantiate initial key/value pairs for map
+            for (i = 0; i < n; i++) {
+
+                // for each horse, make value of type ProposerAgent
+                ProposerAgent horse = new ProposerAgent();
+                horse.setAgentIndex(i);
+                horse.setAgentAvailable(true);
+                horse.setPrefArrayIndex(0); // at start of its pref list
+
+                // for each rider, make key of type Agent
+                Agent rider = new Agent();
+                rider.setAgentIndex(-1); // -1 b/c not pairing yet index >= 0 implies matched with actual rider
+                rider.setAgentAvailable(true);
+
+                matchMap.put(horse, rider);
+            }
+        } else {
+            // optimize riders =>  make riders proposing agents for map<horses, riders>
+            matchMap = new HashMap<Agent, ProposerAgent>();
+
+            // instantiate initial key/value pairs for map
+            for (i = 0; i < n; i++) {
+
+                // for each horse, make key of type Agent
+                Agent horse = new Agent();
+                horse.setAgentIndex(i); // set index
+                horse.setAgentAvailable(true);
+
+                // for each rider, make value of type ProposerAgent
+                ProposerAgent rider = new ProposerAgent();
+                rider.setAgentIndex(-1); // all jth rider not matched with ith horse yet
+                rider.setAgentAvailable(true);
+                rider.setPrefArrayIndex(0); // at start of its pref list
+
+                matchMap.put(horse, rider);
+            }
+        }
+
+
+
+        int[] optimalMatching = new int[n];
+
+        optimalMatching = GaleShapley(int[][] prefHorses, int[][] prefRiders, boolean horseOptimal,
+                                      Map<Agent, Agent> matchMap, int[] optimalMatching);
+
+
+
+
+
+
+    /**
+     * (attempted) Implementation of Gale-Shapley 2-Matching Algorithm (horses and riders)
+     *
+     * @param  prefHorses 2D array for horse preferences (horses)
+     * @param  prefRiders 2D array for rider preferences (riders)
+     * @return array containing optimal matchings,
+     *         ** With matching of the form horse - rider, regardless of who is proposing **
+     *
+     */
+    public int[] GaleShapley(int[][] prefHorses, int[][]prefRiders, boolean horseOptimal,
+                             Map<Agent, Agent> matchMap, int[] optimalMatching) {
+
+        set<Agent> horses = matchMap.keySet();
+
+        if horseOptimal { // with horses proposing
+
+        } else { // with riders proposing
+
+            // while there exists free proposing
+
+            ProposerAgent freeRider = getFreeProposer(matchMap, horseOptimal);
+            while (freeRider != null) {
+
+                int chooserHorse = freeRider.getPrefArrayIndex();
+                freeRider.setPrefArrayIndex(chooserHorse + 1); // move through preference list
+
+
+
+
+
+                freeRider = getFreeProposer(matchMap, horseOptimal);
+            }
+
+
+
+
+        }
+
+
+    } // was gonna try to generalize (i.e. agentA to agentB w/o specific scenario e.g. horses to riders,
+      // but I cannae think straight
+    public Agent getFreeProposer(Map<Agent, Agent>, matchMap, boolean horseOptimal) {
+
+        set<Agent> horses = matchMap.keySet();
+        // iterate through proposing agents, check if free
+
+        if horseOptimal {
+            // proposing agents in matchMap.keySet
+            for (ProposerAgent horse: horses) {
+
+                if horse.isAgentAvailable() {
+                    // return first free proposing agent found
+                    return horse;
+                }
+            }
+        } else {
+
+            // proposing agents in values. . . access proposing agents through keys
+            for (Agent horse: horses) {
+
+                ProposerAgent rider = matchMap.get(horse); // horse better be in keySet!!
+
+                if rider.isAgentAvailable() {
+                    // return first free proposing agent found
+                    return rider
+                }
+            }
+
+            return null; // no free proposing agent
+
+        }
+    }
