@@ -1,6 +1,6 @@
-# 417-algorithms (Fall 2021) (Java)
-My solutions to assignments from the course "Algorithms and Algorithmic Complexity".
-#### Note: I need to reformat my code to follow guidelines. Some of it is unsightly
+# algorithms (Fall 2021) (Java)
+Assignments from the course "Algorithms and Algorithmic Complexity".
+#### Note: need to reformat my code
 
 ## Fibonacci.java
 Finds the nth term in the Fibonacci Sequence, with F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2) for n > 1
