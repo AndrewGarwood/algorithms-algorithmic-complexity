@@ -1,13 +1,12 @@
 # algorithms (Fall 2021) (Java)
 Assignments from the course "Algorithms and Algorithmic Complexity".
-#### Note: need to reformat my code
+#### TODO: refactoring
 
 ## Fibonacci.java
 Finds the nth term in the Fibonacci Sequence, with F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2) for n > 1
-Relatively trivial, but still neat.
 
 ## GeometricSequence.java
-Finds the longest geometrically increasing (strictly) subsequence of anarray.
+Finds the longest geometrically increasing (strictly) subsequence of an array.
 
 ## Inversions.java
 Counts the number of inversions of a given permutation using the Divide and Conquer paradigm.
